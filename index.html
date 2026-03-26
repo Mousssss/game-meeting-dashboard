@@ -18,11 +18,11 @@
             --neon-pink: #f9a8d4;
             --neon-blue: #a5b4fc;
             --neon-cyan: #bae6fd;
-            --glass-bg: rgba(255, 255, 255, 0.15);
-            --glass-border: rgba(255, 255, 255, 0.25);
-            --glass-shadow: 0 8px 32px rgba(139, 92, 246, 0.15);
-            --text-primary: #4c1d95;
-            --text-secondary: #6d28d9;
+            --glass-bg: rgba(248, 250, 252, 0.8);
+            --glass-border: rgba(226, 232, 240, 0.8);
+            --glass-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
         }
 
         body {
@@ -30,43 +30,9 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            background: 
-                radial-gradient(ellipse at 50% 50%, rgba(233, 213, 255, 0.8) 0%, rgba(221, 214, 254, 0.6) 30%, rgba(196, 181, 253, 0.4) 60%, rgba(167, 139, 250, 0.3) 100%),
-                radial-gradient(ellipse at 20% 80%, rgba(251, 207, 232, 0.5) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 20%, rgba(191, 219, 254, 0.5) 0%, transparent 50%),
-                linear-gradient(135deg, #e9d5ff 0%, #ddd6fe 25%, #c4b5fd 50%, #a78bfa 75%, #8b5cf6 100%);
+            background: #ffffff;
             color: var(--text-primary);
             overflow: hidden;
-        }
-
-        /* 梦幻星光效果 */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.6), transparent),
-                radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.9), transparent),
-                radial-gradient(2px 2px at 160px 120px, rgba(255,255,255,0.7), transparent),
-                radial-gradient(1px 1px at 230px 80px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(2px 2px at 300px 150px, rgba(255,255,255,0.6), transparent),
-                radial-gradient(1px 1px at 350px 50px, rgba(255,255,255,0.9), transparent),
-                radial-gradient(2px 2px at 450px 200px, rgba(255,255,255,0.7), transparent);
-            background-repeat: repeat;
-            background-size: 500px 300px;
-            animation: twinkle 8s ease-in-out infinite;
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.6;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 0.8; }
         }
 
         @keyframes bgFloat {
@@ -871,7 +837,7 @@
 
     <script>
         // 配置版本号，更新时递增以强制刷新用户配置
-        const CONFIG_VERSION = 3;
+        const CONFIG_VERSION = 4;
 
         // 默认配置
         const defaultConfig = [
