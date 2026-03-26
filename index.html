@@ -13,14 +13,16 @@
         }
 
         :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --neon-purple: #b829dd;
-            --neon-pink: #ff006e;
-            --neon-blue: #00d4ff;
-            --neon-cyan: #00f5ff;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --primary-gradient: linear-gradient(135deg, #a78bfa 0%, #c084fc 100%);
+            --neon-purple: #c084fc;
+            --neon-pink: #f9a8d4;
+            --neon-blue: #a5b4fc;
+            --neon-cyan: #bae6fd;
+            --glass-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --glass-shadow: 0 8px 32px rgba(139, 92, 246, 0.15);
+            --text-primary: #4c1d95;
+            --text-secondary: #6d28d9;
         }
 
         body {
@@ -28,26 +30,43 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-            color: #fff;
+            background: 
+                radial-gradient(ellipse at 50% 50%, rgba(233, 213, 255, 0.8) 0%, rgba(221, 214, 254, 0.6) 30%, rgba(196, 181, 253, 0.4) 60%, rgba(167, 139, 250, 0.3) 100%),
+                radial-gradient(ellipse at 20% 80%, rgba(251, 207, 232, 0.5) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(191, 219, 254, 0.5) 0%, transparent 50%),
+                linear-gradient(135deg, #e9d5ff 0%, #ddd6fe 25%, #c4b5fd 50%, #a78bfa 75%, #8b5cf6 100%);
+            color: var(--text-primary);
             overflow: hidden;
         }
 
-        /* 动态背景光效 */
+        /* 梦幻星光效果 */
         body::before {
             content: '';
             position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(184, 41, 221, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(255, 0, 110, 0.1) 0%, transparent 40%);
-            animation: bgFloat 20s ease-in-out infinite;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.9), transparent),
+                radial-gradient(2px 2px at 160px 120px, rgba(255,255,255,0.7), transparent),
+                radial-gradient(1px 1px at 230px 80px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(2px 2px at 300px 150px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 350px 50px, rgba(255,255,255,0.9), transparent),
+                radial-gradient(2px 2px at 450px 200px, rgba(255,255,255,0.7), transparent);
+            background-repeat: repeat;
+            background-size: 500px 300px;
+            animation: twinkle 8s ease-in-out infinite;
             pointer-events: none;
             z-index: 0;
+            opacity: 0.6;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
         }
 
         @keyframes bgFloat {
@@ -62,7 +81,7 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--glass-border);
-            color: white;
+            color: var(--text-primary);
             padding: 20px 32px;
             display: flex;
             align-items: center;
@@ -79,7 +98,7 @@
             left: 0;
             right: 0;
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
         }
 
         .header h1 {
@@ -88,7 +107,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            background: linear-gradient(135deg, #fff 0%, #a8b2d1 100%);
+            background: linear-gradient(135deg, var(--text-primary) 0%, #8b5cf6 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -96,13 +115,13 @@
 
         .header-icon {
             font-size: 28px;
-            filter: drop-shadow(0 0 10px rgba(184, 41, 221, 0.5));
+            filter: drop-shadow(0 0 10px rgba(192, 132, 252, 0.5));
         }
 
         #current-time {
             font-size: 14px;
-            color: rgba(255,255,255,0.6);
-            font-weight: 300;
+            color: var(--text-secondary);
+            font-weight: 400;
             letter-spacing: 1px;
         }
 
@@ -140,14 +159,14 @@
         .nav-section-title {
             font-size: 11px;
             font-weight: 600;
-            color: rgba(255,255,255,0.4);
+            color: var(--text-secondary);
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-bottom: 16px;
             padding-left: 8px;
         }
 
-        /* 导航项 - Neon Glow */
+        /* 导航项 - Soft Glow */
         .nav-item {
             display: flex;
             align-items: center;
@@ -156,8 +175,8 @@
             border-radius: 16px;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid transparent;
-            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.4);
             position: relative;
             overflow: hidden;
         }
@@ -169,15 +188,16 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(184, 41, 221, 0.1), rgba(0, 212, 255, 0.1));
+            background: linear-gradient(135deg, rgba(192, 132, 252, 0.15), rgba(165, 180, 252, 0.15));
             opacity: 0;
             transition: opacity 0.3s;
         }
 
         .nav-item:hover {
             transform: translateY(-2px);
-            border-color: rgba(184, 41, 221, 0.3);
-            box-shadow: 0 8px 32px rgba(184, 41, 221, 0.2);
+            border-color: rgba(192, 132, 252, 0.5);
+            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.15);
+            background: rgba(255, 255, 255, 0.5);
         }
 
         .nav-item:hover::before {
@@ -185,11 +205,11 @@
         }
 
         .nav-item.active {
-            background: linear-gradient(135deg, rgba(184, 41, 221, 0.2), rgba(0, 212, 255, 0.2));
-            border-color: rgba(184, 41, 221, 0.5);
+            background: linear-gradient(135deg, rgba(192, 132, 252, 0.25), rgba(165, 180, 252, 0.25));
+            border-color: rgba(139, 92, 246, 0.4);
             box-shadow: 
-                0 0 20px rgba(184, 41, 221, 0.3),
-                inset 0 1px 0 rgba(255,255,255,0.1);
+                0 0 20px rgba(192, 132, 252, 0.2),
+                inset 0 1px 0 rgba(255,255,255,0.5);
         }
 
         .nav-icon {
@@ -201,8 +221,8 @@
             justify-content: center;
             font-size: 20px;
             flex-shrink: 0;
-            background: linear-gradient(135deg, rgba(184, 41, 221, 0.3), rgba(0, 212, 255, 0.3));
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, rgba(192, 132, 252, 0.3), rgba(165, 180, 252, 0.3));
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.15);
         }
 
         .nav-content {
@@ -212,14 +232,14 @@
 
         .nav-title {
             font-size: 15px;
-            font-weight: 500;
-            color: #fff;
+            font-weight: 600;
+            color: var(--text-primary);
             margin-bottom: 4px;
         }
 
         .nav-desc {
             font-size: 12px;
-            color: rgba(255,255,255,0.5);
+            color: var(--text-secondary);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -241,7 +261,7 @@
 
         .nav-arrow {
             font-size: 10px;
-            color: rgba(255,255,255,0.4);
+            color: var(--text-secondary);
             transition: all 0.3s;
             margin-left: auto;
             padding-left: 8px;
@@ -272,18 +292,19 @@
 
         .nav-subitem {
             padding: 12px 16px;
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.25);
             border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .nav-subitem:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(0, 212, 255, 0.3);
+            background: rgba(255, 255, 255, 0.35);
+            border-color: rgba(192, 132, 252, 0.4);
         }
 
         .nav-subitem.active {
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(184, 41, 221, 0.15));
-            border-color: rgba(0, 212, 255, 0.4);
+            background: linear-gradient(135deg, rgba(165, 180, 252, 0.2), rgba(192, 132, 252, 0.2));
+            border-color: rgba(165, 180, 252, 0.5);
         }
 
         .nav-subicon {
@@ -293,11 +314,11 @@
             align-items: center;
             justify-content: center;
             font-size: 20px;
-            color: rgba(255,255,255,0.4);
+            color: var(--text-secondary);
         }
 
         .nav-subitem.active .nav-subicon {
-            color: var(--neon-cyan);
+            color: var(--neon-purple);
         }
 
         /* 快捷操作 */
@@ -310,10 +331,10 @@
         .action-btn {
             width: 100%;
             padding: 14px;
-            border: 1px dashed rgba(255,255,255,0.2);
+            border: 1px dashed rgba(139, 92, 246, 0.3);
             border-radius: 14px;
-            background: rgba(255, 255, 255, 0.03);
-            color: rgba(255,255,255,0.7);
+            background: rgba(255, 255, 255, 0.3);
+            color: var(--text-secondary);
             font-size: 14px;
             cursor: pointer;
             transition: all 0.3s;
@@ -326,8 +347,8 @@
         .action-btn:hover {
             border-color: var(--neon-purple);
             color: var(--neon-purple);
-            background: rgba(184, 41, 221, 0.1);
-            box-shadow: 0 0 20px rgba(184, 41, 221, 0.2);
+            background: rgba(192, 132, 252, 0.15);
+            box-shadow: 0 0 20px rgba(192, 132, 252, 0.15);
         }
 
         /* 内容区域 - Glassmorphism */
@@ -347,7 +368,7 @@
 
         .toolbar {
             height: 64px;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.3);
             border-bottom: 1px solid var(--glass-border);
             display: flex;
             align-items: center;
@@ -357,12 +378,12 @@
 
         .url-display {
             flex: 1;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255,255,255,0.4);
             border-radius: 12px;
             padding: 10px 18px;
             font-size: 13px;
-            color: rgba(255,255,255,0.6);
+            color: var(--text-secondary);
             font-family: 'SF Mono', Monaco, monospace;
             white-space: nowrap;
             overflow: hidden;
@@ -373,7 +394,7 @@
             padding: 10px 20px;
             border: none;
             border-radius: 12px;
-            background: linear-gradient(135deg, rgba(184, 41, 221, 0.8), rgba(0, 212, 255, 0.8));
+            background: linear-gradient(135deg, rgba(192, 132, 252, 0.9), rgba(165, 180, 252, 0.9));
             color: white;
             font-size: 13px;
             font-weight: 500;
@@ -384,6 +405,7 @@
             gap: 6px;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
         }
 
         .tool-btn::before {
@@ -393,7 +415,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
             transition: left 0.5s;
         }
 
@@ -403,24 +425,25 @@
 
         .tool-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(184, 41, 221, 0.4);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
         }
 
         .tool-btn.secondary {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255,255,255,0.4);
+            color: var(--text-secondary);
         }
 
         .tool-btn.secondary:hover {
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            background: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.15);
         }
 
         /* 子 Tab 栏 */
         .sub-tabs {
             display: none;
             height: 52px;
-            background: rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 0.25);
             border-bottom: 1px solid var(--glass-border);
             padding: 0 28px;
             align-items: center;
@@ -438,27 +461,27 @@
             cursor: pointer;
             transition: all 0.3s;
             background: transparent;
-            color: rgba(255,255,255,0.5);
+            color: var(--text-secondary);
             border: 1px solid transparent;
         }
 
         .sub-tab:hover {
-            background: rgba(255, 255, 255, 0.05);
-            color: rgba(255,255,255,0.8);
+            background: rgba(255, 255, 255, 0.3);
+            color: var(--text-primary);
         }
 
         .sub-tab.active {
-            background: linear-gradient(135deg, rgba(184, 41, 221, 0.3), rgba(0, 212, 255, 0.3));
-            color: white;
-            border-color: rgba(184, 41, 221, 0.5);
-            box-shadow: 0 4px 15px rgba(184, 41, 221, 0.2);
+            background: linear-gradient(135deg, rgba(192, 132, 252, 0.3), rgba(165, 180, 252, 0.3));
+            color: var(--text-primary);
+            border-color: rgba(192, 132, 252, 0.4);
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.15);
         }
 
         /* iframe 容器 */
         .iframe-container {
             flex: 1;
             position: relative;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.2);
         }
 
         .iframe-container iframe {
@@ -475,18 +498,18 @@
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
-            color: rgba(255,255,255,0.7);
+            color: var(--text-secondary);
         }
 
         .loading-spinner {
             width: 50px;
             height: 50px;
-            border: 3px solid rgba(255,255,255,0.1);
+            border: 3px solid rgba(139, 92, 246, 0.1);
             border-top-color: var(--neon-purple);
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin: 0 auto 16px;
-            box-shadow: 0 0 20px rgba(184, 41, 221, 0.3);
+            box-shadow: 0 0 20px rgba(192, 132, 252, 0.2);
         }
 
         @keyframes spin {
@@ -500,29 +523,29 @@
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
-            color: rgba(255,255,255,0.5);
+            color: var(--text-secondary);
             padding: 40px;
         }
 
         .empty-state-icon {
             font-size: 72px;
             margin-bottom: 24px;
-            opacity: 0.6;
-            filter: drop-shadow(0 0 20px rgba(184, 41, 221, 0.5));
+            opacity: 0.8;
+            filter: drop-shadow(0 0 20px rgba(192, 132, 252, 0.3));
         }
 
         .empty-state h3 {
             font-size: 22px;
-            color: #fff;
+            color: var(--text-primary);
             margin-bottom: 12px;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .empty-state p {
             font-size: 15px;
             max-width: 320px;
             line-height: 1.7;
-            color: rgba(255,255,255,0.5);
+            color: var(--text-secondary);
         }
 
         /* 外部链接提示样式 */
@@ -533,28 +556,28 @@
             transform: translate(-50%, -50%);
             text-align: center;
             padding: 60px;
-            background: var(--glass-bg);
+            background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(20px);
             border-radius: 24px;
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--glass-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 20px 60px rgba(139, 92, 246, 0.15);
         }
 
         .external-link-prompt .icon {
             font-size: 64px;
             margin-bottom: 24px;
-            filter: drop-shadow(0 0 20px rgba(184, 41, 221, 0.5));
+            filter: drop-shadow(0 0 20px rgba(192, 132, 252, 0.3));
         }
 
         .external-link-prompt h3 {
             font-size: 22px;
-            color: #fff;
+            color: var(--text-primary);
             margin-bottom: 16px;
             font-weight: 600;
         }
 
         .external-link-prompt p {
-            color: rgba(255,255,255,0.6);
+            color: var(--text-secondary);
             margin-bottom: 28px;
             line-height: 1.7;
             max-width: 360px;
@@ -562,7 +585,7 @@
 
         .external-link-btn {
             padding: 14px 32px;
-            background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
+            background: linear-gradient(135deg, #c084fc, #a5b4fc);
             color: white;
             border: none;
             border-radius: 14px;
@@ -573,12 +596,12 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 8px 30px rgba(184, 41, 221, 0.4);
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.3);
         }
 
         .external-link-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(184, 41, 221, 0.5);
+            box-shadow: 0 12px 40px rgba(139, 92, 246, 0.4);
         }
 
         /* 编辑弹窗 */
@@ -589,7 +612,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(76, 29, 149, 0.3);
             backdrop-filter: blur(10px);
             z-index: 1000;
             align-items: center;
@@ -607,21 +630,21 @@
         }
 
         .modal {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(243, 232, 255, 0.95) 100%);
             border-radius: 24px;
             padding: 32px;
             width: 520px;
             max-width: 90vw;
             max-height: 80vh;
             overflow-y: auto;
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 25px 80px rgba(139, 92, 246, 0.2);
         }
 
         .modal h3 {
             margin-bottom: 24px;
             font-size: 20px;
-            color: #fff;
+            color: var(--text-primary);
             font-weight: 600;
         }
 
@@ -633,29 +656,29 @@
             display: block;
             font-size: 13px;
             font-weight: 500;
-            color: rgba(255,255,255,0.7);
+            color: var(--text-secondary);
             margin-bottom: 8px;
         }
 
         .form-group input {
             width: 100%;
             padding: 14px 18px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(192, 132, 252, 0.3);
             border-radius: 14px;
             font-size: 14px;
-            color: #fff;
+            color: var(--text-primary);
             transition: all 0.3s;
         }
 
         .form-group input:focus {
             outline: none;
             border-color: var(--neon-purple);
-            box-shadow: 0 0 20px rgba(184, 41, 221, 0.2);
+            box-shadow: 0 0 20px rgba(192, 132, 252, 0.15);
         }
 
         .form-group input::placeholder {
-            color: rgba(255,255,255,0.3);
+            color: rgba(109, 40, 217, 0.4);
         }
 
         .modal-actions {
@@ -676,23 +699,24 @@
         }
 
         .btn-cancel {
-            background: rgba(255, 255, 255, 0.1);
-            color: rgba(255,255,255,0.7);
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(192, 132, 252, 0.3);
+            color: var(--text-secondary);
         }
 
         .btn-cancel:hover {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.9);
         }
 
         .btn-save {
-            background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
+            background: linear-gradient(135deg, #c084fc, #a5b4fc);
             color: white;
-            box-shadow: 0 4px 20px rgba(184, 41, 221, 0.3);
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.25);
         }
 
         .btn-save:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(184, 41, 221, 0.4);
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.35);
         }
 
         /* 响应式 */
@@ -847,7 +871,7 @@
 
     <script>
         // 配置版本号，更新时递增以强制刷新用户配置
-        const CONFIG_VERSION = 2;
+        const CONFIG_VERSION = 3;
 
         // 默认配置
         const defaultConfig = [
