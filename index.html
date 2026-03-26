@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>游戏项目周会 · 资源展示</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -11,35 +12,98 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --neon-purple: #b829dd;
+            --neon-pink: #ff006e;
+            --neon-blue: #00d4ff;
+            --neon-cyan: #00f5ff;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
             height: 100vh;
             display: flex;
             flex-direction: column;
-            background: #f5f5f7;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: #fff;
+            overflow: hidden;
         }
 
-        /* 顶部标题栏 */
+        /* 动态背景光效 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(184, 41, 221, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 0, 110, 0.1) 0%, transparent 40%);
+            animation: bgFloat 20s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes bgFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(1deg); }
+            66% { transform: translate(-20px, 20px) rotate(-1deg); }
+        }
+
+        /* 顶部标题栏 - Glassmorphism */
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
             color: white;
-            padding: 16px 24px;
+            padding: 20px 32px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
         }
 
         .header h1 {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            background: linear-gradient(135deg, #fff 0%, #a8b2d1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .header-icon {
-            font-size: 24px;
+            font-size: 28px;
+            filter: drop-shadow(0 0 10px rgba(184, 41, 221, 0.5));
+        }
+
+        #current-time {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            font-weight: 300;
+            letter-spacing: 1px;
         }
 
         /* 主布局 */
@@ -47,235 +111,98 @@
             display: flex;
             flex: 1;
             overflow: hidden;
+            position: relative;
+            z-index: 5;
+            padding: 24px;
+            gap: 24px;
         }
 
-        /* 左侧导航栏 */
+        /* 左侧导航栏 - Glassmorphism */
         .sidebar {
-            width: 280px;
-            background: white;
-            border-right: 1px solid #e0e0e0;
+            width: 300px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
             display: flex;
             flex-direction: column;
-            padding: 20px;
-            gap: 12px;
+            padding: 28px;
+            gap: 16px;
             overflow-y: auto;
+            box-shadow: var(--glass-shadow);
         }
 
         .nav-section {
-            margin-bottom: 16px;
+            margin-bottom: 8px;
         }
 
         .nav-section-title {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
-            color: #999;
+            color: rgba(255,255,255,0.4);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 12px;
-            padding-left: 4px;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 14px 16px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border: 2px solid transparent;
-            background: #f8f9fa;
-        }
-
-        .nav-item:hover {
-            background: #f0f0f0;
-            transform: translateX(2px);
-        }
-
-        .nav-item.active {
-            background: linear-gradient(135deg, #667eea20 0%, #764ba220 100%);
-            border-color: #667eea;
-            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.15);
-        }
-
-        .nav-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            flex-shrink: 0;
-        }
-
-        .nav-item:nth-child(1) .nav-icon { background: #00c85320; color: #00c853; }
-        .nav-item:nth-child(2) .nav-icon { background: #ff6d0020; color: #ff6d00; }
-        .nav-item:nth-child(3) .nav-icon { background: #2962ff20; color: #2962ff; }
-
-        /* 导航组样式 */
-        .nav-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .nav-group-header {
-            position: relative;
-            background: #f8f9fa;
-        }
-
-        .nav-group-header .nav-icon {
-            background: #e91e6320 !important;
-            color: #e91e63 !important;
-        }
-
-        .nav-arrow {
-            font-size: 10px;
-            color: #999;
-            transition: transform 0.2s;
-            margin-left: auto;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
             padding-left: 8px;
         }
 
-        .nav-group.expanded .nav-arrow {
-            transform: rotate(90deg);
-        }
-
-        .nav-subitems {
-            display: none;
-            flex-direction: column;
-            gap: 8px;
-            padding-left: 16px;
-            margin-top: 8px;
-        }
-
-        .nav-group.expanded .nav-subitems {
-            display: flex;
-        }
-
-        .nav-subitem {
-            padding: 10px 14px;
-            background: #fafafa;
-        }
-
-        .nav-subitem:hover {
-            background: #f0f0f0;
-        }
-
-        .nav-subitem.active {
-            background: linear-gradient(135deg, #667eea20 0%, #764ba220 100%);
-            border-color: #667eea;
-        }
-
-        .nav-subicon {
-            width: 24px;
-            height: 24px;
+        /* 导航项 - Neon Glow */
+        .nav-item {
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            color: #999;
-        }
-
-        .nav-subitem.active .nav-subicon {
-            color: #667eea;
-        }
-
-        .nav-item:nth-child(4) .nav-icon { background: #00bcd420; color: #00bcd4; }
-
-        /* 导航组样式 */
-        .nav-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .nav-group-header {
-            position: relative;
-        }
-
-        .nav-arrow {
-            font-size: 10px;
-            color: #999;
-            transition: transform 0.2s;
-            margin-left: auto;
-        }
-
-        .nav-group.expanded .nav-arrow {
-            transform: rotate(90deg);
-        }
-
-        .nav-subitems {
-            display: none;
-            flex-direction: column;
-            gap: 8px;
-            padding-left: 16px;
-            margin-top: 8px;
-        }
-
-        .nav-group.expanded .nav-subitems {
-            display: flex;
-        }
-
-        .nav-subitem {
-            padding: 10px 14px;
-            background: #fafafa;
-        }
-
-        .nav-subitem:hover {
-            background: #f0f0f0;
-        }
-
-        .nav-subitem.active {
-            background: linear-gradient(135deg, #667eea20 0%, #764ba220 100%);
-            border-color: #667eea;
-        }
-
-        .nav-subicon {
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            color: #999;
-        }
-
-        .nav-subitem.active .nav-subicon {
-            color: #667eea;
-        }
-
-        /* 子 Tab 工具栏 */
-        .sub-tabs {
-            display: none;
-            height: 42px;
-            background: #f5f5f7;
-            border-bottom: 1px solid #e0e0e0;
-            padding: 0 20px;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .sub-tabs.show {
-            display: flex;
-        }
-
-        .sub-tab {
-            padding: 6px 16px;
-            border-radius: 6px;
-            font-size: 13px;
+            gap: 14px;
+            padding: 16px 20px;
+            border-radius: 16px;
             cursor: pointer;
-            transition: all 0.2s;
-            background: transparent;
-            color: #666;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid transparent;
+            background: rgba(255, 255, 255, 0.03);
+            position: relative;
+            overflow: hidden;
         }
 
-        .sub-tab:hover {
-            background: #e8e8e8;
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(184, 41, 221, 0.1), rgba(0, 212, 255, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
-        .sub-tab.active {
-            background: #667eea;
-            color: white;
+        .nav-item:hover {
+            transform: translateY(-2px);
+            border-color: rgba(184, 41, 221, 0.3);
+            box-shadow: 0 8px 32px rgba(184, 41, 221, 0.2);
+        }
+
+        .nav-item:hover::before {
+            opacity: 1;
+        }
+
+        .nav-item.active {
+            background: linear-gradient(135deg, rgba(184, 41, 221, 0.2), rgba(0, 212, 255, 0.2));
+            border-color: rgba(184, 41, 221, 0.5);
+            box-shadow: 
+                0 0 20px rgba(184, 41, 221, 0.3),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+
+        .nav-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, rgba(184, 41, 221, 0.3), rgba(0, 212, 255, 0.3));
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         .nav-content {
@@ -284,76 +211,158 @@
         }
 
         .nav-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 2px;
+            font-size: 15px;
+            font-weight: 500;
+            color: #fff;
+            margin-bottom: 4px;
         }
 
         .nav-desc {
             font-size: 12px;
-            color: #999;
+            color: rgba(255,255,255,0.5);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
+        /* 导航组样式 */
+        .nav-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-group-header {
+            position: relative;
+        }
+
+        .nav-group-header .nav-icon {
+            background: linear-gradient(135deg, rgba(255, 0, 110, 0.3), rgba(184, 41, 221, 0.3)) !important;
+        }
+
+        .nav-arrow {
+            font-size: 10px;
+            color: rgba(255,255,255,0.4);
+            transition: all 0.3s;
+            margin-left: auto;
+            padding-left: 8px;
+        }
+
+        .nav-group.expanded .nav-arrow {
+            transform: rotate(90deg);
+            color: var(--neon-purple);
+        }
+
+        .nav-subitems {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+
+        .nav-group.expanded .nav-subitems {
+            display: flex;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-subitem {
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+        }
+
+        .nav-subitem:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
+        .nav-subitem.active {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(184, 41, 221, 0.15));
+            border-color: rgba(0, 212, 255, 0.4);
+        }
+
+        .nav-subicon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .nav-subitem.active .nav-subicon {
+            color: var(--neon-cyan);
+        }
+
         /* 快捷操作 */
         .quick-actions {
             margin-top: auto;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
+            padding-top: 24px;
+            border-top: 1px solid var(--glass-border);
         }
 
         .action-btn {
             width: 100%;
-            padding: 12px;
-            border: 1px dashed #ccc;
-            border-radius: 10px;
-            background: #fafafa;
-            color: #666;
-            font-size: 13px;
+            padding: 14px;
+            border: 1px dashed rgba(255,255,255,0.2);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.03);
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 8px;
         }
 
         .action-btn:hover {
-            border-color: #667eea;
-            color: #667eea;
-            background: #f0f0ff;
+            border-color: var(--neon-purple);
+            color: var(--neon-purple);
+            background: rgba(184, 41, 221, 0.1);
+            box-shadow: 0 0 20px rgba(184, 41, 221, 0.2);
         }
 
-        /* 内容区域 */
+        /* 内容区域 - Glassmorphism */
         .content-area {
             flex: 1;
             display: flex;
             flex-direction: column;
-            background: white;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
             position: relative;
+            overflow: hidden;
+            box-shadow: var(--glass-shadow);
         }
 
         .toolbar {
-            height: 50px;
-            background: #fafafa;
-            border-bottom: 1px solid #e0e0e0;
+            height: 64px;
+            background: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid var(--glass-border);
             display: flex;
             align-items: center;
-            padding: 0 20px;
-            gap: 12px;
+            padding: 0 28px;
+            gap: 16px;
         }
 
         .url-display {
             flex: 1;
-            background: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 8px 14px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 10px 18px;
             font-size: 13px;
-            color: #666;
+            color: rgba(255,255,255,0.6);
             font-family: 'SF Mono', Monaco, monospace;
             white-space: nowrap;
             overflow: hidden;
@@ -361,45 +370,102 @@
         }
 
         .tool-btn {
-            padding: 8px 16px;
+            padding: 10px 20px;
             border: none;
-            border-radius: 8px;
-            background: #667eea;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(184, 41, 221, 0.8), rgba(0, 212, 255, 0.8));
             color: white;
             font-size: 13px;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s;
             display: flex;
             align-items: center;
             gap: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .tool-btn:hover::before {
+            left: 100%;
         }
 
         .tool-btn:hover {
-            background: #5a6fd6;
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(184, 41, 221, 0.4);
         }
 
         .tool-btn.secondary {
-            background: #f0f0f0;
-            color: #666;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
         .tool-btn.secondary:hover {
-            background: #e0e0e0;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        /* 子 Tab 栏 */
+        .sub-tabs {
+            display: none;
+            height: 52px;
+            background: rgba(0, 0, 0, 0.15);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 0 28px;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sub-tabs.show {
+            display: flex;
+        }
+
+        .sub-tab {
+            padding: 8px 20px;
+            border-radius: 10px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: transparent;
+            color: rgba(255,255,255,0.5);
+            border: 1px solid transparent;
+        }
+
+        .sub-tab:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255,255,255,0.8);
+        }
+
+        .sub-tab.active {
+            background: linear-gradient(135deg, rgba(184, 41, 221, 0.3), rgba(0, 212, 255, 0.3));
+            color: white;
+            border-color: rgba(184, 41, 221, 0.5);
+            box-shadow: 0 4px 15px rgba(184, 41, 221, 0.2);
         }
 
         /* iframe 容器 */
         .iframe-container {
             flex: 1;
             position: relative;
-            background: #f5f5f7;
+            background: rgba(0, 0, 0, 0.2);
         }
 
         .iframe-container iframe {
             width: 100%;
             height: 100%;
             border: none;
-            background: white;
+            background: transparent;
         }
 
         /* 加载状态 */
@@ -409,17 +475,18 @@
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
-            color: #999;
+            color: rgba(255,255,255,0.7);
         }
 
         .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid #f0f0f0;
-            border-top-color: #667eea;
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255,255,255,0.1);
+            border-top-color: var(--neon-purple);
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin: 0 auto 12px;
+            margin: 0 auto 16px;
+            box-shadow: 0 0 20px rgba(184, 41, 221, 0.3);
         }
 
         @keyframes spin {
@@ -433,26 +500,85 @@
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
-            color: #999;
+            color: rgba(255,255,255,0.5);
             padding: 40px;
         }
 
         .empty-state-icon {
-            font-size: 64px;
-            margin-bottom: 16px;
-            opacity: 0.5;
+            font-size: 72px;
+            margin-bottom: 24px;
+            opacity: 0.6;
+            filter: drop-shadow(0 0 20px rgba(184, 41, 221, 0.5));
         }
 
         .empty-state h3 {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 8px;
+            font-size: 22px;
+            color: #fff;
+            margin-bottom: 12px;
+            font-weight: 500;
         }
 
         .empty-state p {
-            font-size: 14px;
-            max-width: 300px;
-            line-height: 1.6;
+            font-size: 15px;
+            max-width: 320px;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* 外部链接提示样式 */
+        .external-link-prompt {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            padding: 60px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .external-link-prompt .icon {
+            font-size: 64px;
+            margin-bottom: 24px;
+            filter: drop-shadow(0 0 20px rgba(184, 41, 221, 0.5));
+        }
+
+        .external-link-prompt h3 {
+            font-size: 22px;
+            color: #fff;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .external-link-prompt p {
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 28px;
+            line-height: 1.7;
+            max-width: 360px;
+        }
+
+        .external-link-btn {
+            padding: 14px 32px;
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 8px 30px rgba(184, 41, 221, 0.4);
+        }
+
+        .external-link-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(184, 41, 221, 0.5);
         }
 
         /* 编辑弹窗 */
@@ -463,7 +589,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
             z-index: 1000;
             align-items: center;
             justify-content: center;
@@ -471,98 +598,130 @@
 
         .modal-overlay.show {
             display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .modal {
-            background: white;
-            border-radius: 16px;
-            padding: 24px;
-            width: 480px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 24px;
+            padding: 32px;
+            width: 520px;
             max-width: 90vw;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
         }
 
         .modal h3 {
-            margin-bottom: 20px;
-            font-size: 18px;
+            margin-bottom: 24px;
+            font-size: 20px;
+            color: #fff;
+            font-weight: 600;
         }
 
         .form-group {
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
 
         .form-group label {
             display: block;
             font-size: 13px;
-            font-weight: 600;
-            color: #666;
-            margin-bottom: 6px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 8px;
         }
 
-        .form-group input, .form-group select {
+        .form-group input {
             width: 100%;
-            padding: 12px 14px;
-            border: 1px solid #e0e0e0;
-            border-radius: 10px;
+            padding: 14px 18px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 14px;
             font-size: 14px;
-            transition: border-color 0.2s;
+            color: #fff;
+            transition: all 0.3s;
         }
 
-        .form-group input:focus, .form-group select:focus {
+        .form-group input:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: var(--neon-purple);
+            box-shadow: 0 0 20px rgba(184, 41, 221, 0.2);
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255,255,255,0.3);
         }
 
         .modal-actions {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             justify-content: flex-end;
-            margin-top: 24px;
+            margin-top: 28px;
         }
 
         .modal-actions button {
-            padding: 10px 20px;
-            border-radius: 8px;
+            padding: 12px 24px;
+            border-radius: 12px;
             font-size: 14px;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s;
+            border: none;
         }
 
         .btn-cancel {
-            background: #f0f0f0;
-            border: none;
-            color: #666;
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255,255,255,0.7);
         }
 
         .btn-cancel:hover {
-            background: #e0e0e0;
+            background: rgba(255, 255, 255, 0.15);
         }
 
         .btn-save {
-            background: #667eea;
-            border: none;
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
             color: white;
+            box-shadow: 0 4px 20px rgba(184, 41, 221, 0.3);
         }
 
         .btn-save:hover {
-            background: #5a6fd6;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(184, 41, 221, 0.4);
         }
 
         /* 响应式 */
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .sidebar {
-                width: 100%;
-                position: absolute;
-                z-index: 100;
-                height: auto;
-                max-height: 50vh;
-                border-right: none;
-                border-bottom: 1px solid #e0e0e0;
+                width: 260px;
             }
+        }
 
+        @media (max-width: 768px) {
             .main-container {
                 flex-direction: column;
+                padding: 16px;
             }
+            
+            .sidebar {
+                width: 100%;
+                max-height: 40vh;
+                border-radius: 20px;
+            }
+            
+            .content-area {
+                border-radius: 20px;
+            }
+        }
+
+        /* 动画 */
+        .fade-in {
+            animation: fadeIn 0.5s ease;
         }
     </style>
 </head>
@@ -740,6 +899,7 @@
         
         // 保存当前版本号
         localStorage.setItem('meetingConfigVersion', CONFIG_VERSION);
+
         let currentIndex = -1;
         let currentSubIndex = 0;
         let expandedGroup = null;
@@ -868,15 +1028,14 @@
             // 处理腾讯文档 - 不支持 iframe，直接显示提示
             if (item.type === '腾讯文档' || displayUrl.includes('doc.weixin.qq.com')) {
                 container.innerHTML = `
-                    <div class="empty-state" style="text-align: center; padding: 60px;">
-                        <div style="font-size: 64px; margin-bottom: 20px;">📄</div>
-                        <h3 style="font-size: 20px; color: #333; margin-bottom: 12px;">腾讯文档需要在新标签页打开</h3>
-                        <p style="color: #666; margin-bottom: 24px; line-height: 1.6;">
+                    <div class="external-link-prompt">
+                        <div class="icon">📄</div>
+                        <h3>腾讯文档需要在新标签页打开</h3>
+                        <p>
                             由于企业微信安全限制，文档无法在页面内嵌入显示<br>
                             点击下方按钮在新标签页查看
                         </p>
-                        <button onclick="window.open('${displayUrl}', '_blank')" 
-                                style="padding: 12px 28px; background: #667eea; color: white; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; transition: all 0.2s;">
+                        <button class="external-link-btn" onclick="window.open('${displayUrl}', '_blank')">
                             ↗️ 在新标签页打开文档
                         </button>
                     </div>
@@ -887,15 +1046,14 @@
             // 处理 Canva - 编辑链接不支持 iframe
             if (item.type === 'Canva' || displayUrl.includes('canva.cn') || displayUrl.includes('canva.com')) {
                 container.innerHTML = `
-                    <div class="empty-state" style="text-align: center; padding: 60px;">
-                        <div style="font-size: 64px; margin-bottom: 20px;">✨</div>
-                        <h3 style="font-size: 20px; color: #333; margin-bottom: 12px;">Canva 需要在新标签页打开</h3>
-                        <p style="color: #666; margin-bottom: 24px; line-height: 1.6;">
+                    <div class="external-link-prompt">
+                        <div class="icon">✨</div>
+                        <h3>Canva 需要在新标签页打开</h3>
+                        <p>
                             Canva 编辑模式不支持页面内嵌入显示<br>
                             点击下方按钮在新标签页查看
                         </p>
-                        <button onclick="window.open('${displayUrl}', '_blank')" 
-                                style="padding: 12px 28px; background: #00bcd4; color: white; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; transition: all 0.2s;">
+                        <button class="external-link-btn" onclick="window.open('${displayUrl}', '_blank')">
                             ↗️ 在新标签页打开 Canva
                         </button>
                     </div>
@@ -957,11 +1115,11 @@
                         <div class="form-group">
                             <label>${item.icon} ${item.name} - 文件基础地址</label>
                             <input type="text" id="url-${index}-base" value="${item.baseUrl}" placeholder="Figma 文件基础链接">
-                            <small style="color: #999; font-size: 12px; margin-top: 4px; display: block;">${item.desc}</small>
+                            <small style="color: rgba(255,255,255,0.4); font-size: 12px; margin-top: 4px; display: block;">${item.desc}</small>
                         </div>
                         ${item.pages.map((page, pIndex) => `
                             <div class="form-group" style="padding-left: 20px;">
-                                <label style="font-weight: normal; color: #888;">${page.name} - Node ID</label>
+                                <label style="font-weight: normal; color: rgba(255,255,255,0.5);">${page.name} - Node ID</label>
                                 <input type="text" id="url-${index}-page-${pIndex}" value="${page.nodeId}" placeholder="node-id">
                             </div>
                         `).join('')}
@@ -971,7 +1129,7 @@
                         <div class="form-group">
                             <label>${item.icon} ${item.name} 链接地址</label>
                             <input type="text" id="url-${index}" value="${item.url}" placeholder="请输入 ${item.type} 链接">
-                            <small style="color: #999; font-size: 12px; margin-top: 4px; display: block;">${item.desc}</small>
+                            <small style="color: rgba(255,255,255,0.4); font-size: 12px; margin-top: 4px; display: block;">${item.desc}</small>
                         </div>
                     `;
                 }
@@ -1026,13 +1184,15 @@
                 position: fixed;
                 top: 20px;
                 right: 20px;
-                background: #00c853;
+                background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
                 color: white;
-                padding: 12px 20px;
-                border-radius: 10px;
+                padding: 14px 24px;
+                border-radius: 12px;
                 font-size: 14px;
+                font-weight: 500;
                 z-index: 9999;
                 animation: slideIn 0.3s ease;
+                box-shadow: 0 8px 30px rgba(184, 41, 221, 0.4);
             `;
             toast.textContent = message;
             document.body.appendChild(toast);
