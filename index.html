@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>游戏项目周会 · 资源展示</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,26 +12,41 @@
         }
 
         :root {
-            --primary-gradient: linear-gradient(135deg, #a78bfa 0%, #c084fc 100%);
-            --neon-purple: #c084fc;
-            --neon-pink: #f9a8d4;
-            --neon-blue: #a5b4fc;
-            --neon-cyan: #bae6fd;
-            --glass-bg: rgba(248, 250, 252, 0.8);
-            --glass-border: rgba(226, 232, 240, 0.8);
-            --glass-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            --text-primary: #1e293b;
-            --text-secondary: #64748b;
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --neon-purple: #b829dd;
+            --neon-pink: #ff006e;
+            --neon-blue: #00d4ff;
+            --neon-cyan: #00f5ff;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
         body {
-            font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             height: 100vh;
             display: flex;
             flex-direction: column;
-            background: #ffffff;
-            color: var(--text-primary);
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: #fff;
             overflow: hidden;
+        }
+
+        /* 动态背景光效 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(184, 41, 221, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 0, 110, 0.1) 0%, transparent 40%);
+            animation: bgFloat 20s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
         }
 
         @keyframes bgFloat {
@@ -41,14 +55,14 @@
             66% { transform: translate(-20px, 20px) rotate(-1deg); }
         }
 
-        /* 顶部标题栏 - Glassmorphism */
+        /* 顶部标题栏 */
         .header {
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--glass-border);
-            color: var(--text-primary);
-            padding: 20px 32px;
+            color: white;
+            padding: 16px 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -57,38 +71,20 @@
             box-shadow: var(--glass-shadow);
         }
 
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
-        }
-
         .header h1 {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 12px;
-            background: linear-gradient(135deg, var(--text-primary) 0%, #8b5cf6 100%);
+            gap: 10px;
+            background: linear-gradient(135deg, #fff 0%, #a8b2d1 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
         .header-icon {
-            font-size: 28px;
-            filter: drop-shadow(0 0 10px rgba(192, 132, 252, 0.5));
-        }
-
-        #current-time {
-            font-size: 14px;
-            color: var(--text-secondary);
-            font-weight: 400;
-            letter-spacing: 1px;
+            font-size: 24px;
         }
 
         /* 主布局 */
@@ -98,24 +94,20 @@
             overflow: hidden;
             position: relative;
             z-index: 5;
-            padding: 24px;
-            gap: 24px;
         }
 
-        /* 左侧导航栏 - Glassmorphism */
+        /* 左侧导航栏 */
         .sidebar {
-            width: 300px;
+            width: 260px;
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
+            border-right: 1px solid var(--glass-border);
             display: flex;
             flex-direction: column;
-            padding: 28px;
-            gap: 16px;
+            padding: 20px;
+            gap: 8px;
             overflow-y: auto;
-            box-shadow: var(--glass-shadow);
         }
 
         .nav-section {
@@ -125,70 +117,34 @@
         .nav-section-title {
             font-size: 11px;
             font-weight: 600;
-            color: var(--text-secondary);
+            color: rgba(255,255,255,0.4);
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 16px;
-            padding-left: 8px;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            padding-left: 12px;
         }
 
-        /* 导航项 - Soft Glow */
+        /* 导航项 - 纯文字 */
         .nav-item {
             display: flex;
             align-items: center;
-            gap: 14px;
-            padding: 16px 20px;
-            border-radius: 16px;
+            padding: 14px 16px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            background: rgba(255, 255, 255, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(192, 132, 252, 0.15), rgba(165, 180, 252, 0.15));
-            opacity: 0;
-            transition: opacity 0.3s;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+            background: rgba(255, 255, 255, 0.03);
         }
 
         .nav-item:hover {
-            transform: translateY(-2px);
-            border-color: rgba(192, 132, 252, 0.5);
-            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.15);
-            background: rgba(255, 255, 255, 0.5);
-        }
-
-        .nav-item:hover::before {
-            opacity: 1;
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(2px);
         }
 
         .nav-item.active {
-            background: linear-gradient(135deg, rgba(192, 132, 252, 0.25), rgba(165, 180, 252, 0.25));
-            border-color: rgba(139, 92, 246, 0.4);
-            box-shadow: 
-                0 0 20px rgba(192, 132, 252, 0.2),
-                inset 0 1px 0 rgba(255,255,255,0.5);
-        }
-
-        .nav-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            flex-shrink: 0;
-            background: linear-gradient(135deg, rgba(192, 132, 252, 0.3), rgba(165, 180, 252, 0.3));
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.15);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
         }
 
         .nav-content {
@@ -197,15 +153,15 @@
         }
 
         .nav-title {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #fff;
+            margin-bottom: 2px;
         }
 
         .nav-desc {
-            font-size: 12px;
-            color: var(--text-secondary);
+            font-size: 11px;
+            color: rgba(255,255,255,0.5);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -221,135 +177,94 @@
             position: relative;
         }
 
-        .nav-group-header .nav-icon {
-            background: linear-gradient(135deg, rgba(255, 0, 110, 0.3), rgba(184, 41, 221, 0.3)) !important;
-        }
-
         .nav-arrow {
             font-size: 10px;
-            color: var(--text-secondary);
-            transition: all 0.3s;
+            color: rgba(255,255,255,0.4);
+            transition: transform 0.2s;
             margin-left: auto;
-            padding-left: 8px;
         }
 
         .nav-group.expanded .nav-arrow {
             transform: rotate(90deg);
-            color: var(--neon-purple);
         }
 
         .nav-subitems {
             display: none;
             flex-direction: column;
-            gap: 10px;
-            padding-left: 20px;
-            margin-top: 10px;
+            gap: 6px;
+            padding-left: 16px;
+            margin-top: 6px;
         }
 
         .nav-group.expanded .nav-subitems {
             display: flex;
-            animation: slideDown 0.3s ease;
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .nav-subitem {
-            padding: 12px 16px;
-            background: rgba(255, 255, 255, 0.25);
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.02);
         }
 
         .nav-subitem:hover {
-            background: rgba(255, 255, 255, 0.35);
-            border-color: rgba(192, 132, 252, 0.4);
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .nav-subitem.active {
-            background: linear-gradient(135deg, rgba(165, 180, 252, 0.2), rgba(192, 132, 252, 0.2));
-            border-color: rgba(165, 180, 252, 0.5);
-        }
-
-        .nav-subicon {
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            color: var(--text-secondary);
-        }
-
-        .nav-subitem.active .nav-subicon {
-            color: var(--neon-purple);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+            border-color: rgba(102, 126, 234, 0.4);
         }
 
         /* 快捷操作 */
         .quick-actions {
             margin-top: auto;
-            padding-top: 24px;
+            padding-top: 20px;
             border-top: 1px solid var(--glass-border);
         }
 
         .action-btn {
             width: 100%;
-            padding: 14px;
-            border: 1px dashed rgba(139, 92, 246, 0.3);
-            border-radius: 14px;
-            background: rgba(255, 255, 255, 0.3);
-            color: var(--text-secondary);
-            font-size: 14px;
+            padding: 12px;
+            border: 1px dashed rgba(255,255,255,0.2);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            color: rgba(255,255,255,0.6);
+            font-size: 13px;
             cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            transition: all 0.2s;
         }
 
         .action-btn:hover {
-            border-color: var(--neon-purple);
-            color: var(--neon-purple);
-            background: rgba(192, 132, 252, 0.15);
-            box-shadow: 0 0 20px rgba(192, 132, 252, 0.15);
+            border-color: rgba(102, 126, 234, 0.5);
+            color: rgba(255,255,255,0.9);
         }
 
-        /* 内容区域 - Glassmorphism */
+        /* 内容区域 */
         .content-area {
             flex: 1;
             display: flex;
             flex-direction: column;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
+            background: rgba(0, 0, 0, 0.2);
             position: relative;
-            overflow: hidden;
-            box-shadow: var(--glass-shadow);
         }
 
         .toolbar {
-            height: 64px;
-            background: rgba(255, 255, 255, 0.3);
+            height: 50px;
+            background: rgba(0, 0, 0, 0.3);
             border-bottom: 1px solid var(--glass-border);
             display: flex;
             align-items: center;
-            padding: 0 28px;
-            gap: 16px;
+            padding: 0 20px;
+            gap: 12px;
         }
 
         .url-display {
             flex: 1;
-            background: rgba(255, 255, 255, 0.5);
-            border: 1px solid rgba(255,255,255,0.4);
-            border-radius: 12px;
-            padding: 10px 18px;
-            font-size: 13px;
-            color: var(--text-secondary);
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-size: 12px;
+            color: rgba(255,255,255,0.6);
             font-family: 'SF Mono', Monaco, monospace;
             white-space: nowrap;
             overflow: hidden;
@@ -357,63 +272,38 @@
         }
 
         .tool-btn {
-            padding: 10px 20px;
+            padding: 8px 16px;
             border: none;
-            border-radius: 12px;
-            background: linear-gradient(135deg, rgba(192, 132, 252, 0.9), rgba(165, 180, 252, 0.9));
+            border-radius: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            font-size: 13px;
-            font-weight: 500;
+            font-size: 12px;
             cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
-        }
-
-        .tool-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: left 0.5s;
-        }
-
-        .tool-btn:hover::before {
-            left: 100%;
+            transition: all 0.2s;
         }
 
         .tool-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+            opacity: 0.9;
+            transform: translateY(-1px);
         }
 
         .tool-btn.secondary {
-            background: rgba(255, 255, 255, 0.4);
-            border: 1px solid rgba(255,255,255,0.4);
-            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .tool-btn.secondary:hover {
-            background: rgba(255, 255, 255, 0.5);
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.15);
+            background: rgba(255, 255, 255, 0.15);
         }
 
         /* 子 Tab 栏 */
         .sub-tabs {
             display: none;
-            height: 52px;
-            background: rgba(255, 255, 255, 0.25);
+            height: 44px;
+            background: rgba(0, 0, 0, 0.2);
             border-bottom: 1px solid var(--glass-border);
-            padding: 0 28px;
+            padding: 0 20px;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
         }
 
         .sub-tabs.show {
@@ -421,33 +311,30 @@
         }
 
         .sub-tab {
-            padding: 8px 20px;
-            border-radius: 10px;
-            font-size: 13px;
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-size: 12px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.2s;
             background: transparent;
-            color: var(--text-secondary);
-            border: 1px solid transparent;
+            color: rgba(255,255,255,0.5);
         }
 
         .sub-tab:hover {
-            background: rgba(255, 255, 255, 0.3);
-            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255,255,255,0.8);
         }
 
         .sub-tab.active {
-            background: linear-gradient(135deg, rgba(192, 132, 252, 0.3), rgba(165, 180, 252, 0.3));
-            color: var(--text-primary);
-            border-color: rgba(192, 132, 252, 0.4);
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.15);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
         }
 
         /* iframe 容器 */
         .iframe-container {
             flex: 1;
             position: relative;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.1);
         }
 
         .iframe-container iframe {
@@ -464,18 +351,17 @@
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
-            color: var(--text-secondary);
+            color: rgba(255,255,255,0.6);
         }
 
         .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(139, 92, 246, 0.1);
-            border-top-color: var(--neon-purple);
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255,255,255,0.1);
+            border-top-color: #667eea;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin: 0 auto 16px;
-            box-shadow: 0 0 20px rgba(192, 132, 252, 0.2);
+            margin: 0 auto 12px;
         }
 
         @keyframes spin {
@@ -489,29 +375,20 @@
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
-            color: var(--text-secondary);
+            color: rgba(255,255,255,0.5);
             padding: 40px;
         }
 
-        .empty-state-icon {
-            font-size: 72px;
-            margin-bottom: 24px;
-            opacity: 0.8;
-            filter: drop-shadow(0 0 20px rgba(192, 132, 252, 0.3));
-        }
-
         .empty-state h3 {
-            font-size: 22px;
-            color: var(--text-primary);
-            margin-bottom: 12px;
-            font-weight: 600;
+            font-size: 18px;
+            color: #fff;
+            margin-bottom: 8px;
         }
 
         .empty-state p {
-            font-size: 15px;
-            max-width: 320px;
-            line-height: 1.7;
-            color: var(--text-secondary);
+            font-size: 14px;
+            max-width: 300px;
+            line-height: 1.6;
         }
 
         /* 外部链接提示样式 */
@@ -521,53 +398,38 @@
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
-            padding: 60px;
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 20px 60px rgba(139, 92, 246, 0.15);
-        }
-
-        .external-link-prompt .icon {
-            font-size: 64px;
-            margin-bottom: 24px;
-            filter: drop-shadow(0 0 20px rgba(192, 132, 252, 0.3));
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
         }
 
         .external-link-prompt h3 {
-            font-size: 22px;
-            color: var(--text-primary);
-            margin-bottom: 16px;
-            font-weight: 600;
+            font-size: 18px;
+            color: #fff;
+            margin-bottom: 12px;
         }
 
         .external-link-prompt p {
-            color: var(--text-secondary);
-            margin-bottom: 28px;
-            line-height: 1.7;
-            max-width: 360px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 20px;
+            line-height: 1.6;
         }
 
         .external-link-btn {
-            padding: 14px 32px;
-            background: linear-gradient(135deg, #c084fc, #a5b4fc);
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            border-radius: 14px;
-            font-size: 15px;
-            font-weight: 500;
+            border-radius: 8px;
+            font-size: 14px;
             cursor: pointer;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.3);
+            transition: all 0.2s;
         }
 
         .external-link-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(139, 92, 246, 0.4);
+            opacity: 0.9;
         }
 
         /* 编辑弹窗 */
@@ -578,8 +440,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(76, 29, 149, 0.3);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.8);
             z-index: 1000;
             align-items: center;
             justify-content: center;
@@ -587,153 +448,115 @@
 
         .modal-overlay.show {
             display: flex;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
 
         .modal {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(243, 232, 255, 0.95) 100%);
-            border-radius: 24px;
-            padding: 32px;
-            width: 520px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 16px;
+            padding: 24px;
+            width: 480px;
             max-width: 90vw;
             max-height: 80vh;
             overflow-y: auto;
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 25px 80px rgba(139, 92, 246, 0.2);
+            border: 1px solid var(--glass-border);
         }
 
         .modal h3 {
-            margin-bottom: 24px;
-            font-size: 20px;
-            color: var(--text-primary);
-            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #fff;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .form-group label {
             display: block;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
+            font-size: 12px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 6px;
         }
 
         .form-group input {
             width: 100%;
-            padding: 14px 18px;
-            background: rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(192, 132, 252, 0.3);
-            border-radius: 14px;
+            padding: 12px 14px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
             font-size: 14px;
-            color: var(--text-primary);
-            transition: all 0.3s;
+            color: #fff;
         }
 
         .form-group input:focus {
             outline: none;
-            border-color: var(--neon-purple);
-            box-shadow: 0 0 20px rgba(192, 132, 252, 0.15);
-        }
-
-        .form-group input::placeholder {
-            color: rgba(109, 40, 217, 0.4);
+            border-color: #667eea;
         }
 
         .modal-actions {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             justify-content: flex-end;
-            margin-top: 28px;
+            margin-top: 24px;
         }
 
         .modal-actions button {
-            padding: 12px 24px;
-            border-radius: 12px;
+            padding: 10px 20px;
+            border-radius: 8px;
             font-size: 14px;
-            font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.2s;
             border: none;
         }
 
         .btn-cancel {
-            background: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(192, 132, 252, 0.3);
-            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255,255,255,0.7);
         }
 
         .btn-cancel:hover {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.15);
         }
 
         .btn-save {
-            background: linear-gradient(135deg, #c084fc, #a5b4fc);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.25);
         }
 
         .btn-save:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.35);
+            opacity: 0.9;
         }
 
         /* 响应式 */
-        @media (max-width: 1024px) {
-            .sidebar {
-                width: 260px;
-            }
-        }
-
         @media (max-width: 768px) {
-            .main-container {
-                flex-direction: column;
-                padding: 16px;
-            }
-            
             .sidebar {
                 width: 100%;
-                max-height: 40vh;
-                border-radius: 20px;
+                position: absolute;
+                z-index: 100;
+                height: auto;
+                max-height: 50vh;
+                border-right: none;
+                border-bottom: 1px solid var(--glass-border);
             }
-            
-            .content-area {
-                border-radius: 20px;
-            }
-        }
 
-        /* 动画 */
-        .fade-in {
-            animation: fadeIn 0.5s ease;
+            .main-container {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- 顶部标题栏 -->
     <header class="header">
-        <h1>
-            <span class="header-icon">🎮</span>
-            游戏项目周会 · 资源展示
-        </h1>
+        <h1>🎮 游戏项目周会 · 资源展示</h1>
         <span id="current-time"></span>
     </header>
 
-    <!-- 主布局 -->
     <div class="main-container">
-        <!-- 左侧导航栏 -->
         <aside class="sidebar">
             <div class="nav-section">
                 <div class="nav-section-title">会议资源</div>
                 
                 <div class="nav-item active" data-index="0" onclick="switchTab(0)">
-                    <div class="nav-icon">📅</div>
                     <div class="nav-content">
                         <div class="nav-title">设计排期表</div>
                         <div class="nav-desc">腾讯文档 - 项目排期</div>
@@ -741,7 +564,6 @@
                 </div>
 
                 <div class="nav-item" data-index="1" onclick="switchTab(1)">
-                    <div class="nav-icon">📊</div>
                     <div class="nav-content">
                         <div class="nav-title">方案汇总表</div>
                         <div class="nav-desc">腾讯文档 - 方案整理</div>
@@ -749,7 +571,6 @@
                 </div>
 
                 <div class="nav-item" data-index="2" onclick="switchTab(2)">
-                    <div class="nav-icon">🎨</div>
                     <div class="nav-content">
                         <div class="nav-title">猫耳市集设计</div>
                         <div class="nav-desc">Figma - UI/UX 设计</div>
@@ -758,7 +579,6 @@
 
                 <div class="nav-group">
                     <div class="nav-item nav-group-header" data-index="3" onclick="toggleGroup(3)">
-                        <div class="nav-icon">🖼️</div>
                         <div class="nav-content">
                             <div class="nav-title">场景立绘</div>
                             <div class="nav-desc">Figma - 美术资源</div>
@@ -767,13 +587,11 @@
                     </div>
                     <div class="nav-subitems" id="group-3">
                         <div class="nav-item nav-subitem" data-index="3" data-subindex="0" onclick="switchTab(3, 0)">
-                            <div class="nav-subicon">•</div>
                             <div class="nav-content">
                                 <div class="nav-title">一期资源</div>
                             </div>
                         </div>
                         <div class="nav-item nav-subitem" data-index="3" data-subindex="1" onclick="switchTab(3, 1)">
-                            <div class="nav-subicon">•</div>
                             <div class="nav-content">
                                 <div class="nav-title">二期资源需求</div>
                             </div>
@@ -782,7 +600,6 @@
                 </div>
 
                 <div class="nav-item" data-index="4" onclick="switchTab(4)">
-                    <div class="nav-icon">✨</div>
                     <div class="nav-content">
                         <div class="nav-title">原画共享表</div>
                         <div class="nav-desc">Canva - 美术资源</div>
@@ -791,21 +608,17 @@
             </div>
 
             <div class="quick-actions">
-                <button class="action-btn" onclick="openEditModal()">
-                    <span>⚙️</span> 编辑链接地址
-                </button>
+                <button class="action-btn" onclick="openEditModal()">编辑链接地址</button>
             </div>
         </aside>
 
-        <!-- 内容区域 -->
         <main class="content-area">
             <div class="toolbar">
                 <div class="url-display" id="url-display">点击左侧切换资源...</div>
-                <button class="tool-btn secondary" onclick="refreshFrame()">🔄 刷新</button>
-                <button class="tool-btn" onclick="openInNewTab()">↗️ 新标签打开</button>
+                <button class="tool-btn secondary" onclick="refreshFrame()">刷新</button>
+                <button class="tool-btn" onclick="openInNewTab()">新标签打开</button>
             </div>
             
-            <!-- 子 Tab 栏（场景立绘专用） -->
             <div class="sub-tabs" id="sub-tabs">
                 <div class="sub-tab active" data-subindex="0" onclick="switchSubTab(0)">一期资源</div>
                 <div class="sub-tab" data-subindex="1" onclick="switchSubTab(1)">二期资源需求</div>
@@ -813,7 +626,6 @@
             
             <div class="iframe-container" id="iframe-container">
                 <div class="empty-state">
-                    <div class="empty-state-icon">📋</div>
                     <h3>选择左侧资源开始展示</h3>
                     <p>点击左侧导航栏中的项目，即可在此处展示对应的内容</p>
                 </div>
@@ -821,51 +633,42 @@
         </main>
     </div>
 
-    <!-- 编辑弹窗 -->
     <div class="modal-overlay" id="edit-modal">
         <div class="modal">
             <h3>编辑资源链接</h3>
-            <div id="edit-forms">
-                <!-- 动态生成 -->
-            </div>
+            <div id="edit-forms"></div>
             <div class="modal-actions">
                 <button class="btn-cancel" onclick="closeEditModal()">取消</button>
-                <button class="btn-save" onclick="saveLinks()">保存设置</button>
+                <button class="btn-save" onclick="saveLinks()">保存</button>
             </div>
         </div>
     </div>
 
     <script>
-        // 配置版本号，更新时递增以强制刷新用户配置
-        const CONFIG_VERSION = 4;
+        const CONFIG_VERSION = 5;
 
-        // 默认配置
         const defaultConfig = [
             {
                 name: "设计排期表",
                 type: "腾讯文档",
-                icon: "📅",
                 url: "https://doc.weixin.qq.com/smartsheet/s3_AD4AmgbsADgCN4Q8LjjrlT7GH14cF?scode=ANYAEAdoABEyhUTWuWAD4AmgbsADg&tab=5v8j9u&viewId=vXzANM",
                 desc: "智能表格 - 项目排期跟踪"
             },
             {
                 name: "方案汇总表",
                 type: "腾讯文档",
-                icon: "📊",
                 url: "https://doc.weixin.qq.com/sheet/e3_ARoAOAZwAKoCNwQkAe12rTve0r3t3?scode=ANYAEAdoABEANLIZ4tAD4AmgbsADg&tab=gg88rc",
                 desc: "表格 - 方案汇总整理"
             },
             {
                 name: "猫耳市集设计",
                 type: "Figma",
-                icon: "🎨",
                 url: "https://www.figma.com/design/BD5yWZD7sAohhOGMKDXA1a/%E7%8C%AB%E8%80%B3%E5%B8%82%E9%9B%86?node-id=2646-6&t=Os8QFH0oBeVZPaJG-1",
                 desc: "UI/UX 主设计方案"
             },
             {
                 name: "场景立绘",
                 type: "Figma",
-                icon: "🖼️",
                 isGroup: true,
                 baseUrl: "https://www.figma.com/design/mx6TmWTBvzD3UgvlUV07Im/%E7%8C%AB%E8%80%B3%E5%B8%82%E9%9B%86%E5%9C%BA%E6%99%AF-%E7%AB%8B%E7%BB%98",
                 pages: [
@@ -877,35 +680,28 @@
             {
                 name: "原画共享表",
                 type: "Canva",
-                icon: "✨",
                 url: "https://www.canva.cn/design/DAHCZyw0w4U/KfOdxMgbpZatrK0Kjf576w/edit",
                 desc: "可画 - 美术原画资源共享"
             }
         ];
 
-        // 从 localStorage 加载配置（带版本检查）
         const savedVersion = localStorage.getItem('meetingConfigVersion');
         let config = (savedVersion == CONFIG_VERSION) ? (JSON.parse(localStorage.getItem('meetingConfig')) || defaultConfig) : defaultConfig;
-        
-        // 保存当前版本号
         localStorage.setItem('meetingConfigVersion', CONFIG_VERSION);
 
         let currentIndex = -1;
         let currentSubIndex = 0;
         let expandedGroup = null;
 
-        // 初始化
         document.addEventListener('DOMContentLoaded', () => {
             updateTime();
             setInterval(updateTime, 1000);
             
-            // 恢复展开状态
             expandedGroup = localStorage.getItem('expandedGroup');
             if (expandedGroup !== null) {
                 document.querySelector(`.nav-group:has([data-index="${expandedGroup}"])`)?.classList.add('expanded');
             }
             
-            // 如果有保存的当前索引，自动加载
             const savedIndex = localStorage.getItem('currentIndex');
             const savedSubIndex = localStorage.getItem('currentSubIndex');
             if (savedIndex !== null) {
@@ -930,13 +726,9 @@
 
         function updateTime() {
             const now = new Date();
-            const timeStr = now.toLocaleString('zh-CN', {
-                month: 'short',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
+            document.getElementById('current-time').textContent = now.toLocaleString('zh-CN', {
+                month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
             });
-            document.getElementById('current-time').textContent = timeStr;
         }
 
         function switchTab(index, subIndex = 0) {
@@ -947,7 +739,6 @@
 
             const item = config[index];
             
-            // 如果是组，展开它
             if (item.isGroup) {
                 const group = document.querySelector(`.nav-group:has([data-index="${index}"])`);
                 if (group) {
@@ -955,48 +746,32 @@
                     expandedGroup = index;
                     localStorage.setItem('expandedGroup', expandedGroup);
                 }
-                // 显示子 Tab 栏
                 document.getElementById('sub-tabs').classList.add('show');
-                // 更新子 Tab 状态
                 document.querySelectorAll('.sub-tab').forEach((tab, i) => {
-                    if (i === subIndex) {
-                        tab.classList.add('active');
-                    } else {
-                        tab.classList.remove('active');
-                    }
+                    tab.classList.toggle('active', i === subIndex);
                 });
             } else {
-                // 隐藏子 Tab 栏
                 document.getElementById('sub-tabs').classList.remove('show');
             }
 
-            // 更新导航样式
-            document.querySelectorAll('.nav-item').forEach((navItem, i) => {
+            document.querySelectorAll('.nav-item').forEach((navItem) => {
                 const navIndex = parseInt(navItem.dataset.index);
                 const navSubIndex = navItem.dataset.subindex !== undefined ? parseInt(navItem.dataset.subindex) : -1;
-                
                 navItem.classList.remove('active');
                 if (navIndex === index) {
                     if (item.isGroup) {
-                        // 组内的子项
-                        if (navSubIndex === subIndex) {
-                            navItem.classList.add('active');
-                        }
+                        if (navSubIndex === subIndex) navItem.classList.add('active');
                     } else {
-                        // 普通项
                         navItem.classList.add('active');
                     }
                 }
             });
 
-            // 加载内容
             loadContent(item, subIndex);
         }
 
         function switchSubTab(subIndex) {
-            if (currentIndex >= 0) {
-                switchTab(currentIndex, subIndex);
-            }
+            if (currentIndex >= 0) switchTab(currentIndex, subIndex);
         }
 
         function loadContent(item, subIndex = 0) {
@@ -1004,82 +779,48 @@
             const urlDisplay = document.getElementById('url-display');
             
             let displayUrl = item.url;
-            let embedUrl = item.url;
-            
-            // 处理组图的特殊逻辑
             if (item.isGroup && item.pages) {
-                const page = item.pages[subIndex];
-                displayUrl = `${item.baseUrl}?node-id=${page.nodeId}`;
-                embedUrl = displayUrl;
+                displayUrl = `${item.baseUrl}?node-id=${item.pages[subIndex].nodeId}`;
             }
-            
             urlDisplay.textContent = displayUrl;
 
-            // 处理腾讯文档 - 不支持 iframe，直接显示提示
             if (item.type === '腾讯文档' || displayUrl.includes('doc.weixin.qq.com')) {
                 container.innerHTML = `
                     <div class="external-link-prompt">
-                        <div class="icon">📄</div>
                         <h3>腾讯文档需要在新标签页打开</h3>
-                        <p>
-                            由于企业微信安全限制，文档无法在页面内嵌入显示<br>
-                            点击下方按钮在新标签页查看
-                        </p>
-                        <button class="external-link-btn" onclick="window.open('${displayUrl}', '_blank')">
-                            ↗️ 在新标签页打开文档
-                        </button>
-                    </div>
-                `;
+                        <p>由于企业微信安全限制，文档无法在页面内嵌入显示</p>
+                        <button class="external-link-btn" onclick="window.open('${displayUrl}', '_blank')">在新标签页打开文档</button>
+                    </div>`;
                 return;
             }
 
-            // 处理 Canva - 编辑链接不支持 iframe
-            if (item.type === 'Canva' || displayUrl.includes('canva.cn') || displayUrl.includes('canva.com')) {
+            if (item.type === 'Canva' || displayUrl.includes('canva.')) {
                 container.innerHTML = `
                     <div class="external-link-prompt">
-                        <div class="icon">✨</div>
                         <h3>Canva 需要在新标签页打开</h3>
-                        <p>
-                            Canva 编辑模式不支持页面内嵌入显示<br>
-                            点击下方按钮在新标签页查看
-                        </p>
-                        <button class="external-link-btn" onclick="window.open('${displayUrl}', '_blank')">
-                            ↗️ 在新标签页打开 Canva
-                        </button>
-                    </div>
-                `;
+                        <p>Canva 编辑模式不支持页面内嵌入显示</p>
+                        <button class="external-link-btn" onclick="window.open('${displayUrl}', '_blank')">在新标签页打开 Canva</button>
+                    </div>`;
                 return;
             }
 
-            // 显示加载状态
             container.innerHTML = `
                 <div class="loading">
                     <div class="loading-spinner"></div>
                     <p>正在加载 ${item.isGroup ? item.pages[subIndex].name : item.name}...</p>
-                </div>
-            `;
+                </div>`;
 
-            // 处理 Figma 嵌入链接
             setTimeout(() => {
+                let embedUrl = displayUrl;
                 if (item.type === 'Figma' || displayUrl.includes('figma.com')) {
-                    // 使用 Figma 官方嵌入
                     embedUrl = `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(displayUrl)}`;
                 }
-                
-                container.innerHTML = `
-                    <iframe 
-                        src="${embedUrl}" 
-                        allow="fullscreen" 
-                        frameborder="0"
-                    ></iframe>
-                `;
+                container.innerHTML = `<iframe src="${embedUrl}" allow="fullscreen" frameborder="0"></iframe>`;
             }, 500);
         }
 
         function refreshFrame() {
-            if (currentIndex >= 0) {
-                switchTab(currentIndex, currentSubIndex);
-            }
+            if (currentIndex >= 0) switchTab(currentIndex, currentSubIndex);
         }
 
         function openInNewTab() {
@@ -1087,45 +828,36 @@
                 const item = config[currentIndex];
                 let url = item.url;
                 if (item.isGroup && item.pages) {
-                    const page = item.pages[currentSubIndex];
-                    url = `${item.baseUrl}?node-id=${page.nodeId}`;
+                    url = `${item.baseUrl}?node-id=${item.pages[currentSubIndex].nodeId}`;
                 }
                 window.open(url, '_blank');
             }
         }
 
         function openEditModal() {
-            const modal = document.getElementById('edit-modal');
             const forms = document.getElementById('edit-forms');
-            
             forms.innerHTML = config.map((item, index) => {
                 if (item.isGroup) {
-                    // 组图显示多个输入框
                     return `
                         <div class="form-group">
-                            <label>${item.icon} ${item.name} - 文件基础地址</label>
+                            <label>${item.name} - 文件基础地址</label>
                             <input type="text" id="url-${index}-base" value="${item.baseUrl}" placeholder="Figma 文件基础链接">
-                            <small style="color: rgba(255,255,255,0.4); font-size: 12px; margin-top: 4px; display: block;">${item.desc}</small>
                         </div>
                         ${item.pages.map((page, pIndex) => `
                             <div class="form-group" style="padding-left: 20px;">
-                                <label style="font-weight: normal; color: rgba(255,255,255,0.5);">${page.name} - Node ID</label>
+                                <label>${page.name} - Node ID</label>
                                 <input type="text" id="url-${index}-page-${pIndex}" value="${page.nodeId}" placeholder="node-id">
                             </div>
-                        `).join('')}
-                    `;
+                        `).join('')}`;
                 } else {
                     return `
                         <div class="form-group">
-                            <label>${item.icon} ${item.name} 链接地址</label>
+                            <label>${item.name} 链接地址</label>
                             <input type="text" id="url-${index}" value="${item.url}" placeholder="请输入 ${item.type} 链接">
-                            <small style="color: rgba(255,255,255,0.4); font-size: 12px; margin-top: 4px; display: block;">${item.desc}</small>
-                        </div>
-                    `;
+                        </div>`;
                 }
             }).join('');
-            
-            modal.classList.add('show');
+            document.getElementById('edit-modal').classList.add('show');
         }
 
         function closeEditModal() {
@@ -1135,78 +867,31 @@
         function saveLinks() {
             config.forEach((item, index) => {
                 if (item.isGroup) {
-                    // 保存组图的基础 URL
                     const baseInput = document.getElementById(`url-${index}-base`);
-                    if (baseInput) {
-                        item.baseUrl = baseInput.value.trim();
-                    }
-                    // 保存每个页面的 nodeId
+                    if (baseInput) item.baseUrl = baseInput.value.trim();
                     item.pages.forEach((page, pIndex) => {
                         const pageInput = document.getElementById(`url-${index}-page-${pIndex}`);
-                        if (pageInput) {
-                            page.nodeId = pageInput.value.trim();
-                        }
+                        if (pageInput) page.nodeId = pageInput.value.trim();
                     });
                 } else {
                     const input = document.getElementById(`url-${index}`);
-                    if (input) {
-                        item.url = input.value.trim();
-                    }
+                    if (input) item.url = input.value.trim();
                 }
             });
-            
             localStorage.setItem('meetingConfig', JSON.stringify(config));
-            localStorage.setItem('meetingConfigVersion', CONFIG_VERSION);
             closeEditModal();
-            
-            // 如果当前有选中的标签，刷新它
-            if (currentIndex >= 0) {
-                switchTab(currentIndex, currentSubIndex);
-            }
-            
-            // 显示保存成功提示
-            showToast('链接已保存！');
+            if (currentIndex >= 0) switchTab(currentIndex, currentSubIndex);
         }
 
-        function showToast(message) {
-            const toast = document.createElement('div');
-            toast.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
-                color: white;
-                padding: 14px 24px;
-                border-radius: 12px;
-                font-size: 14px;
-                font-weight: 500;
-                z-index: 9999;
-                animation: slideIn 0.3s ease;
-                box-shadow: 0 8px 30px rgba(184, 41, 221, 0.4);
-            `;
-            toast.textContent = message;
-            document.body.appendChild(toast);
-            
-            setTimeout(() => {
-                toast.style.animation = 'slideOut 0.3s ease';
-                setTimeout(() => toast.remove(), 300);
-            }, 2000);
-        }
-
-        // 键盘快捷键
         document.addEventListener('keydown', (e) => {
             if (e.key >= '1' && e.key <= '5' && !e.ctrlKey && !e.metaKey) {
                 const index = parseInt(e.key) - 1;
-                if (index < config.length) {
-                    switchTab(index, 0);
-                }
+                if (index < config.length) switchTab(index, 0);
             }
-            // Tab 键在组图内切换子页面
             if (e.key === 'Tab' && currentIndex >= 0 && config[currentIndex].isGroup) {
                 e.preventDefault();
                 const item = config[currentIndex];
-                const nextSubIndex = (currentSubIndex + 1) % item.pages.length;
-                switchTab(currentIndex, nextSubIndex);
+                switchTab(currentIndex, (currentSubIndex + 1) % item.pages.length);
             }
             if (e.key === 'r' && (e.ctrlKey || e.metaKey)) {
                 e.preventDefault();
@@ -1214,11 +899,8 @@
             }
         });
 
-        // 点击遮罩关闭弹窗
         document.getElementById('edit-modal').addEventListener('click', (e) => {
-            if (e.target.id === 'edit-modal') {
-                closeEditModal();
-            }
+            if (e.target.id === 'edit-modal') closeEditModal();
         });
     </script>
 </body>
