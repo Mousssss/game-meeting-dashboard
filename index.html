@@ -617,7 +617,7 @@
     </div>
 
     <script>
-        const CONFIG_VERSION = 7;
+        const CONFIG_VERSION = 8;
 
         const defaultConfig = [
             {
@@ -664,6 +664,10 @@
         let currentIndex = -1;
         let currentSubIndex = 0;
         let expandedGroup = null;
+
+        // iframe 缓存，key 为 URL，value 为 iframe 元素
+        const iframeCache = new Map();
+        let currentUrl = null;
 
         document.addEventListener('DOMContentLoaded', () => {
             updateTime();
@@ -739,14 +743,14 @@
                 }
             });
 
-            loadContent(item, subIndex);
+            loadContent(item, subIndex, false); // false = 不强制刷新，使用缓存
         }
 
         function switchSubTab(subIndex) {
             if (currentIndex >= 0) switchTab(currentIndex, subIndex);
         }
 
-        function loadContent(item, subIndex = 0) {
+        function loadContent(item, subIndex = 0, forceRefresh = false) {
             const container = document.getElementById('iframe-container');
             const urlDisplay = document.getElementById('url-display');
             
@@ -757,42 +761,93 @@
             urlDisplay.textContent = displayUrl;
 
             if (item.type === '腾讯文档' || displayUrl.includes('doc.weixin.qq.com')) {
+                // 清除缓存中的 iframe
+                if (iframeCache.has(displayUrl)) {
+                    iframeCache.delete(displayUrl);
+                }
                 container.innerHTML = `
                     <div class="external-link-prompt">
                         <h3>腾讯文档需要在新标签页打开</h3>
                         <p>由于企业微信安全限制，文档无法在页面内嵌入显示</p>
                         <button class="external-link-btn" onclick="window.open('${displayUrl}', '_blank')">在新标签页打开文档</button>
                     </div>`;
+                currentUrl = displayUrl;
                 return;
             }
 
             if (item.type === 'Canva' || displayUrl.includes('canva.')) {
+                // 清除缓存中的 iframe
+                if (iframeCache.has(displayUrl)) {
+                    iframeCache.delete(displayUrl);
+                }
                 container.innerHTML = `
                     <div class="external-link-prompt">
                         <h3>Canva 需要在新标签页打开</h3>
                         <p>Canva 编辑模式不支持页面内嵌入显示</p>
                         <button class="external-link-btn" onclick="window.open('${displayUrl}', '_blank')">在新标签页打开 Canva</button>
                     </div>`;
+                currentUrl = displayUrl;
                 return;
             }
 
-            container.innerHTML = `
-                <div class="loading">
-                    <div class="loading-spinner"></div>
-                    <p>正在加载 ${item.isGroup ? item.pages[subIndex].name : item.name}...</p>
-                </div>`;
+            // 如果不是强制刷新，且缓存中存在该 URL 的 iframe，直接显示
+            if (!forceRefresh && iframeCache.has(displayUrl)) {
+                // 隐藏所有 iframe
+                iframeCache.forEach((iframe, url) => {
+                    iframe.style.display = url === displayUrl ? 'block' : 'none';
+                });
+                currentUrl = displayUrl;
+                return;
+            }
+
+            // 强制刷新或缓存不存在时，重新创建 iframe
+            if (forceRefresh && iframeCache.has(displayUrl)) {
+                iframeCache.delete(displayUrl);
+            }
+
+            // 隐藏所有现有 iframe
+            iframeCache.forEach((iframe) => {
+                iframe.style.display = 'none';
+            });
+
+            // 显示加载状态
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'loading';
+            loadingDiv.innerHTML = `
+                <div class="loading-spinner"></div>
+                <p>正在加载 ${item.isGroup ? item.pages[subIndex].name : item.name}...</p>
+            `;
+            container.appendChild(loadingDiv);
 
             setTimeout(() => {
                 let embedUrl = displayUrl;
                 if (item.type === 'Figma' || displayUrl.includes('figma.com')) {
                     embedUrl = `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(displayUrl)}`;
                 }
-                container.innerHTML = `<iframe src="${embedUrl}" allow="fullscreen" frameborder="0"></iframe>`;
+                
+                const iframe = document.createElement('iframe');
+                iframe.src = embedUrl;
+                iframe.allow = 'fullscreen';
+                iframe.frameBorder = '0';
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+                
+                // 移除 loading
+                if (loadingDiv.parentNode) {
+                    loadingDiv.remove();
+                }
+                
+                container.appendChild(iframe);
+                iframeCache.set(displayUrl, iframe);
+                currentUrl = displayUrl;
             }, 500);
         }
 
         function refreshFrame() {
-            if (currentIndex >= 0) switchTab(currentIndex, currentSubIndex);
+            if (currentIndex >= 0) {
+                const item = config[currentIndex];
+                loadContent(item, currentSubIndex, true); // true = 强制刷新
+            }
         }
 
         function openInNewTab() {
