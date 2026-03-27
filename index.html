@@ -617,7 +617,7 @@
     </div>
 
     <script>
-        const CONFIG_VERSION = 10;
+        const CONFIG_VERSION = 11;
 
         const defaultConfig = [
             {
@@ -792,7 +792,14 @@
 
             // 如果不是强制刷新，且缓存中存在该 URL 的 iframe，直接显示
             if (!forceRefresh && iframeCache.has(displayUrl)) {
-                // 隐藏所有 iframe
+                // 清除容器中的非 iframe 元素（空状态提示、外部链接提示等）
+                const container = document.getElementById('iframe-container');
+                Array.from(container.children).forEach(child => {
+                    if (child.tagName !== 'IFRAME') {
+                        child.remove();
+                    }
+                });
+                // 隐藏所有 iframe，显示当前缓存的
                 iframeCache.forEach((iframe, url) => {
                     iframe.style.display = url === displayUrl ? 'block' : 'none';
                 });
@@ -808,6 +815,13 @@
             // 隐藏所有现有 iframe
             iframeCache.forEach((iframe) => {
                 iframe.style.display = 'none';
+            });
+
+            // 清除容器中的非 iframe 元素
+            Array.from(container.children).forEach(child => {
+                if (child.tagName !== 'IFRAME') {
+                    child.remove();
+                }
             });
 
             // 显示加载状态
@@ -832,10 +846,15 @@
                 iframe.style.width = '100%';
                 iframe.style.height = '100%';
                 
-                // 移除 loading
+                // 移除 loading 和所有非 iframe 元素
                 if (loadingDiv.parentNode) {
                     loadingDiv.remove();
                 }
+                Array.from(container.children).forEach(child => {
+                    if (child.tagName !== 'IFRAME') {
+                        child.remove();
+                    }
+                });
                 
                 container.appendChild(iframe);
                 iframeCache.set(displayUrl, iframe);
