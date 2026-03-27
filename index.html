@@ -528,25 +528,10 @@
             <div class="nav-section">
                 <div class="nav-section-title">会议资源</div>
 
-                <div class="nav-group expanded">
-                    <div class="nav-item nav-group-header active" data-index="0" onclick="toggleGroup(0)">
-                        <div class="nav-content">
-                            <div class="nav-title">场景立绘</div>
-                            <div class="nav-desc">Figma - 美术资源</div>
-                        </div>
-                        <div class="nav-arrow">▶</div>
-                    </div>
-                    <div class="nav-subitems" id="group-0">
-                        <div class="nav-item nav-subitem active" data-index="0" data-subindex="0" onclick="switchTab(0, 0)">
-                            <div class="nav-content">
-                                <div class="nav-title">一期资源</div>
-                            </div>
-                        </div>
-                        <div class="nav-item nav-subitem" data-index="0" data-subindex="1" onclick="switchTab(0, 1)">
-                            <div class="nav-content">
-                                <div class="nav-title">二期资源需求</div>
-                            </div>
-                        </div>
+                <div class="nav-item active" data-index="0" onclick="switchTab(0)">
+                    <div class="nav-content">
+                        <div class="nav-title">本周美术资源更新</div>
+                        <div class="nav-desc">Figma - 场景立绘</div>
                     </div>
                 </div>
 
@@ -592,8 +577,7 @@
             </div>
             
             <div class="sub-tabs" id="sub-tabs">
-                <div class="sub-tab active" data-subindex="0" onclick="switchSubTab(0)">一期资源</div>
-                <div class="sub-tab" data-subindex="1" onclick="switchSubTab(1)">二期资源需求</div>
+                <!-- 子标签页动态生成 -->
             </div>
             
             <div class="iframe-container" id="iframe-container">
@@ -617,19 +601,14 @@
     </div>
 
     <script>
-        const CONFIG_VERSION = 11;
+        const CONFIG_VERSION = 12;
 
         const defaultConfig = [
             {
-                name: "场景立绘",
+                name: "本周美术资源更新",
                 type: "Figma",
-                isGroup: true,
-                baseUrl: "https://www.figma.com/design/mx6TmWTBvzD3UgvlUV07Im/%E7%8C%AB%E8%80%B3%E5%B8%82%E9%9B%86%E5%9C%BA%E6%99%AF-%E7%AB%8B%E7%BB%98",
-                pages: [
-                    { name: "一期资源", nodeId: "0-1" },
-                    { name: "二期资源需求", nodeId: "532-5" }
-                ],
-                desc: "美术资源 - 场景与立绘"
+                url: "https://www.figma.com/design/mx6TmWTBvzD3UgvlUV07Im/%E7%8C%AB%E8%80%B3%E5%B8%82%E9%9B%86%E5%9C%BA%E6%99%AF-%E7%AB%8B%E7%BB%98?node-id=1132-16&t=5fRqLK8cwa9Zke2T-1",
+                desc: "Figma - 场景立绘"
             },
             {
                 name: "本周UI设计更新",
