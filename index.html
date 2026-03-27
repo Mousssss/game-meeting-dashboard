@@ -605,7 +605,7 @@
     </div>
 
     <script>
-        const CONFIG_VERSION = 17;
+        const CONFIG_VERSION = 18;
 
         const defaultConfig = [
             {
@@ -782,9 +782,17 @@
                         child.remove();
                     }
                 });
-                // 隐藏所有 iframe，显示当前缓存的
+                // 使用 visibility 而不是 display 来避免 iframe 重新加载
                 iframeCache.forEach((iframe, url) => {
-                    iframe.style.display = url === displayUrl ? 'block' : 'none';
+                    if (url === displayUrl) {
+                        iframe.style.visibility = 'visible';
+                        iframe.style.position = 'static';
+                    } else {
+                        iframe.style.visibility = 'hidden';
+                        iframe.style.position = 'absolute';
+                        iframe.style.top = '0';
+                        iframe.style.left = '0';
+                    }
                 });
                 currentUrl = displayUrl;
                 return;
@@ -792,12 +800,19 @@
 
             // 强制刷新或缓存不存在时，重新创建 iframe
             if (forceRefresh && iframeCache.has(displayUrl)) {
+                const oldIframe = iframeCache.get(displayUrl);
+                if (oldIframe && oldIframe.parentNode) {
+                    oldIframe.remove();
+                }
                 iframeCache.delete(displayUrl);
             }
 
-            // 隐藏所有现有 iframe
+            // 隐藏所有现有 iframe (使用 visibility 避免重新加载)
             iframeCache.forEach((iframe) => {
-                iframe.style.display = 'none';
+                iframe.style.visibility = 'hidden';
+                iframe.style.position = 'absolute';
+                iframe.style.top = '0';
+                iframe.style.left = '0';
             });
 
             // 清除容器中的非 iframe 元素
@@ -828,6 +843,8 @@
                 iframe.frameBorder = '0';
                 iframe.style.width = '100%';
                 iframe.style.height = '100%';
+                iframe.style.visibility = 'visible';
+                iframe.style.position = 'static';
                 
                 // 移除 loading 和所有非 iframe 元素
                 if (loadingDiv.parentNode) {
