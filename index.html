@@ -527,47 +527,47 @@
         <aside class="sidebar">
             <div class="nav-section">
                 <div class="nav-section-title">会议资源</div>
-                
-                <div class="nav-item active" data-index="0" onclick="switchTab(0)">
-                    <div class="nav-content">
-                        <div class="nav-title">设计排期表</div>
-                        <div class="nav-desc">腾讯文档 - 项目排期</div>
-                    </div>
-                </div>
 
-                <div class="nav-item" data-index="1" onclick="switchTab(1)">
-                    <div class="nav-content">
-                        <div class="nav-title">方案汇总表</div>
-                        <div class="nav-desc">腾讯文档 - 方案整理</div>
-                    </div>
-                </div>
-
-                <div class="nav-item" data-index="2" onclick="switchTab(2)">
-                    <div class="nav-content">
-                        <div class="nav-title">猫耳市集设计</div>
-                        <div class="nav-desc">Figma - UI/UX 设计</div>
-                    </div>
-                </div>
-
-                <div class="nav-group">
-                    <div class="nav-item nav-group-header" data-index="3" onclick="toggleGroup(3)">
+                <div class="nav-group expanded">
+                    <div class="nav-item nav-group-header active" data-index="0" onclick="toggleGroup(0)">
                         <div class="nav-content">
                             <div class="nav-title">场景立绘</div>
                             <div class="nav-desc">Figma - 美术资源</div>
                         </div>
                         <div class="nav-arrow">▶</div>
                     </div>
-                    <div class="nav-subitems" id="group-3">
-                        <div class="nav-item nav-subitem" data-index="3" data-subindex="0" onclick="switchTab(3, 0)">
+                    <div class="nav-subitems" id="group-0">
+                        <div class="nav-item nav-subitem active" data-index="0" data-subindex="0" onclick="switchTab(0, 0)">
                             <div class="nav-content">
                                 <div class="nav-title">一期资源</div>
                             </div>
                         </div>
-                        <div class="nav-item nav-subitem" data-index="3" data-subindex="1" onclick="switchTab(3, 1)">
+                        <div class="nav-item nav-subitem" data-index="0" data-subindex="1" onclick="switchTab(0, 1)">
                             <div class="nav-content">
                                 <div class="nav-title">二期资源需求</div>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <div class="nav-item" data-index="1" onclick="switchTab(1)">
+                    <div class="nav-content">
+                        <div class="nav-title">猫耳市集设计</div>
+                        <div class="nav-desc">Figma - UI/UX 设计</div>
+                    </div>
+                </div>
+                
+                <div class="nav-item" data-index="2" onclick="switchTab(2)">
+                    <div class="nav-content">
+                        <div class="nav-title">设计排期表</div>
+                        <div class="nav-desc">腾讯文档 - 项目排期</div>
+                    </div>
+                </div>
+
+                <div class="nav-item" data-index="3" onclick="switchTab(3)">
+                    <div class="nav-content">
+                        <div class="nav-title">方案汇总表</div>
+                        <div class="nav-desc">腾讯文档 - 方案整理</div>
                     </div>
                 </div>
 
@@ -617,9 +617,26 @@
     </div>
 
     <script>
-        const CONFIG_VERSION = 6;
+        const CONFIG_VERSION = 7;
 
         const defaultConfig = [
+            {
+                name: "场景立绘",
+                type: "Figma",
+                isGroup: true,
+                baseUrl: "https://www.figma.com/design/mx6TmWTBvzD3UgvlUV07Im/%E7%8C%AB%E8%80%B3%E5%B8%82%E9%9B%86%E5%9C%BA%E6%99%AF-%E7%AB%8B%E7%BB%98",
+                pages: [
+                    { name: "一期资源", nodeId: "0-1" },
+                    { name: "二期资源需求", nodeId: "532-5" }
+                ],
+                desc: "美术资源 - 场景与立绘"
+            },
+            {
+                name: "猫耳市集设计",
+                type: "Figma",
+                url: "https://www.figma.com/design/BD5yWZD7sAohhOGMKDXA1a/%E7%8C%AB%E8%80%B3%E5%B8%82%E9%9B%86?node-id=2646-6&t=Os8QFH0oBeVZPaJG-1",
+                desc: "UI/UX 主设计方案"
+            },
             {
                 name: "设计排期表",
                 type: "腾讯文档",
@@ -631,23 +648,6 @@
                 type: "腾讯文档",
                 url: "https://doc.weixin.qq.com/sheet/e3_ARoAOAZwAKoCNwQkAe12rTve0r3t3?scode=ANYAEAdoABEANLIZ4tAD4AmgbsADg&tab=gg88rc",
                 desc: "表格 - 方案汇总整理"
-            },
-            {
-                name: "猫耳市集设计",
-                type: "Figma",
-                url: "https://www.figma.com/design/BD5yWZD7sAohhOGMKDXA1a/%E7%8C%AB%E8%80%B3%E5%B8%82%E9%9B%86?node-id=2646-6&t=Os8QFH0oBeVZPaJG-1",
-                desc: "UI/UX 主设计方案"
-            },
-            {
-                name: "场景立绘",
-                type: "Figma",
-                isGroup: true,
-                baseUrl: "https://www.figma.com/design/mx6TmWTBvzD3UgvlUV07Im/%E7%8C%AB%E8%80%B3%E5%B8%82%E9%9B%86%E5%9C%BA%E6%99%AF-%E7%AB%8B%E7%BB%98",
-                pages: [
-                    { name: "一期资源", nodeId: "0-1" },
-                    { name: "二期资源需求", nodeId: "532-5" }
-                ],
-                desc: "美术资源 - 场景与立绘"
             },
             {
                 name: "原画共享表",
