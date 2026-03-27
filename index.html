@@ -78,13 +78,14 @@
 
         /* 左侧导航栏 */
         .sidebar {
-            width: 360px;
+            width: 420px;
             background: #f9fafb;
             border-right: 1px solid #e5e7eb;
             display: flex;
             flex-direction: column;
             padding: 16px;
             overflow-y: auto;
+            flex-shrink: 0;
         }
 
         .nav-section-title {
@@ -126,7 +127,6 @@
             color: #1f2937;
             margin-bottom: 4px;
             line-height: 1.4;
-            white-space: nowrap;
         }
 
         .nav-desc {
@@ -605,7 +605,7 @@
     </div>
 
     <script>
-        const CONFIG_VERSION = 15;
+        const CONFIG_VERSION = 16;
 
         const defaultConfig = [
             {
