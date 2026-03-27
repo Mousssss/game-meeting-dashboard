@@ -609,7 +609,7 @@
     </div>
 
     <script>
-        const CONFIG_VERSION = 21;
+        const CONFIG_VERSION = 22;
 
         const defaultConfig = [
             {
@@ -748,31 +748,49 @@
             urlDisplay.textContent = displayUrl;
 
             if (item.type === '腾讯文档' || displayUrl.includes('doc.weixin.qq.com')) {
-                // 清除缓存中的 iframe
-                if (iframeCache.has(displayUrl)) {
-                    iframeCache.delete(displayUrl);
-                }
-                container.innerHTML = `
-                    <div class="external-link-prompt">
-                        <h3>腾讯文档需要在新标签页打开</h3>
-                        <p>由于企业微信安全限制，文档无法在页面内嵌入显示</p>
-                        <button class="external-link-btn" onclick="window.open('${displayUrl}', '_blank')">在新标签页打开文档</button>
-                    </div>`;
+                // 隐藏所有现有 iframe
+                iframeCache.forEach((iframe) => {
+                    iframe.style.visibility = 'hidden';
+                    iframe.style.position = 'absolute';
+                });
+                // 清除非 iframe 元素
+                Array.from(container.children).forEach(child => {
+                    if (child.tagName !== 'IFRAME') {
+                        child.remove();
+                    }
+                });
+                const promptDiv = document.createElement('div');
+                promptDiv.className = 'external-link-prompt';
+                promptDiv.innerHTML = `
+                    <h3>腾讯文档需要在新标签页打开</h3>
+                    <p>由于企业微信安全限制，文档无法在页面内嵌入显示</p>
+                    <button class="external-link-btn" onclick="window.open('${displayUrl}', '_blank')">在新标签页打开文档</button>
+                `;
+                container.appendChild(promptDiv);
                 currentUrl = displayUrl;
                 return;
             }
 
             if (item.type === 'Canva' || displayUrl.includes('canva.')) {
-                // 清除缓存中的 iframe
-                if (iframeCache.has(displayUrl)) {
-                    iframeCache.delete(displayUrl);
-                }
-                container.innerHTML = `
-                    <div class="external-link-prompt">
-                        <h3>Canva 需要在新标签页打开</h3>
-                        <p>Canva 编辑模式不支持页面内嵌入显示</p>
-                        <button class="external-link-btn" onclick="window.open('${displayUrl}', '_blank')">在新标签页打开 Canva</button>
-                    </div>`;
+                // 隐藏所有现有 iframe
+                iframeCache.forEach((iframe) => {
+                    iframe.style.visibility = 'hidden';
+                    iframe.style.position = 'absolute';
+                });
+                // 清除非 iframe 元素
+                Array.from(container.children).forEach(child => {
+                    if (child.tagName !== 'IFRAME') {
+                        child.remove();
+                    }
+                });
+                const promptDiv = document.createElement('div');
+                promptDiv.className = 'external-link-prompt';
+                promptDiv.innerHTML = `
+                    <h3>Canva 需要在新标签页打开</h3>
+                    <p>Canva 编辑模式不支持页面内嵌入显示</p>
+                    <button class="external-link-btn" onclick="window.open('${displayUrl}', '_blank')">在新标签页打开 Canva</button>
+                `;
+                container.appendChild(promptDiv);
                 currentUrl = displayUrl;
                 return;
             }
